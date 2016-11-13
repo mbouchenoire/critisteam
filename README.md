@@ -1,5 +1,7 @@
 # CritiSteam
 [![Build Status](https://travis-ci.org/mbouchenoire/critisteam.svg?branch=master)](https://travis-ci.org/mbouchenoire/critisteam)&nbsp;
+[![Coverage Status](https://coveralls.io/repos/github/mbouchenoire/critisteam/badge.svg?branch=master)](https://coveralls.io/github/mbouchenoire/critisteam?branch=master)
+
 A Java library to retrieve Steam reviews data.
 
 ## Basic usage
