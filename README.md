@@ -25,3 +25,11 @@ public class App {
     }
 }
 ```
+
+### Cache management
+A cache management solution is included within the API :
+```java
+// The CachedSteamReviewsApi class extends the "default" SteamReviewsApi class,
+// making the cache management transparent to the client.
+SteamReviewsApi reviewsApi = new CachedSteamReviewsApi(5, TimeUnit.MINUTES);
+```
