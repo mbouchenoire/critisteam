@@ -9,13 +9,17 @@ import junit.framework.TestSuite;
  */
 public class SteamReviewsApiTest extends TestCase {
 
-    private static final SteamReviewsApi api = new SteamReviewsApi();
-
-    private static final UserReviewsSummaryRepositoryTest tester
-            = new UserReviewsSummaryRepositoryTest(api);
+    private final SteamReviewsApi api;
+    private final UserReviewsSummaryRepositoryTest userReviewsSummaryRepositoryTester;
 
     public SteamReviewsApiTest(String testName) {
+        this(testName, new SteamReviewsApi());
+    }
+
+    public SteamReviewsApiTest(String testName, SteamReviewsApi api) {
         super(testName);
+        this.api = api;
+        this.userReviewsSummaryRepositoryTester = new UserReviewsSummaryRepositoryTest(api);
     }
 
     public static TestSuite suite() {
@@ -23,18 +27,18 @@ public class SteamReviewsApiTest extends TestCase {
     }
 
     public void testGetSummaryInvalidAppId() {
-        tester.testGetSummaryInvalidAppId();
+        userReviewsSummaryRepositoryTester.testGetSummaryInvalidAppId();
     }
 
     public void testGetSummaryOverall() throws SteamReviewsException {
-        tester.testGetSummaryOverall();
+        userReviewsSummaryRepositoryTester.testGetSummaryOverall();
     }
 
     public void testGetSummaryRecent() throws SteamReviewsException {
-        tester.testGetSummaryRecent();
+        userReviewsSummaryRepositoryTester.testGetSummaryRecent();
     }
 
     public void testGetSummaryRecentAbsent() throws SteamReviewsException {
-        tester.testGetSummaryRecentAbsent();
+        userReviewsSummaryRepositoryTester.testGetSummaryRecentAbsent();
     }
 }
