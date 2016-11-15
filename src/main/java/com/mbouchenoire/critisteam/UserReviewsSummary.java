@@ -15,6 +15,10 @@ public final class UserReviewsSummary {
 
     public UserReviewsSummary(int reviewsNumber, int positivePercentage, final UserReviewsSummaryLabel label) {
         super();
+
+        if (label == null)
+            throw new IllegalArgumentException("Label cannot be null.");
+
         this.reviewsNumber = reviewsNumber;
         this.positivePercentage = positivePercentage;
         this.label = label;
