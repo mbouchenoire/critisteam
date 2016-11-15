@@ -54,6 +54,6 @@ public final class UserReviewsSummary {
 
     @Override
     public String toString() {
-        return String.format("%d% - %s (%n reviews)", positivePercentage, label, reviewsNumber);
+        return String.format("%d%% - %s (%d reviews)", positivePercentage, label, reviewsNumber);
     }
 }
