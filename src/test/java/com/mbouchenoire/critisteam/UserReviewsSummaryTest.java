@@ -23,6 +23,15 @@ public class UserReviewsSummaryTest extends TestCase {
         return new TestSuite(UserReviewsSummaryTest.class);
     }
 
+    public void testNullLabel() {
+        try {
+            new UserReviewsSummary(1, 1, null);
+            assertTrue(false);
+        } catch (IllegalArgumentException iae) {
+            assertNotNull(iae);
+        }
+    }
+
     public void testEquals() {
         equalsAndHashCodeTester.testEquals();
     }
