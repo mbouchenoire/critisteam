@@ -50,4 +50,8 @@ public class CacheConfigTest extends TestCase {
     public void testHashCode() {
         equalsAndHashCodeTester.testHashCode();
     }
+
+    public void testToString() {
+        assertEquals("1 SECONDS", cacheConfig1.toString());
+    }
 }
