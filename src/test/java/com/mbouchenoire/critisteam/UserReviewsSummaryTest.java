@@ -12,6 +12,9 @@ public class UserReviewsSummaryTest extends TestCase {
     private static final UserReviewsSummary summary2 = new UserReviewsSummary(100, 50, UserReviewsSummaryLabel.MIXED);
     private static final UserReviewsSummary summary3 = new UserReviewsSummary(200, 80, UserReviewsSummaryLabel.POSITIVE);
 
+    private final EqualsAndHashCodeTest equalsAndHashCodeTester =
+            new EqualsAndHashCodeTest(summary1, summary2, summary3);
+
     public UserReviewsSummaryTest(String testName) {
         super(testName);
     }
@@ -21,16 +24,11 @@ public class UserReviewsSummaryTest extends TestCase {
     }
 
     public void testEquals() {
-        assertFalse(summary1.equals(null));
-        assertFalse(summary1.equals(new Object()));
-        assertTrue(summary1.equals(summary1));
-        assertTrue(summary1.equals(summary2));
-        assertFalse(summary1.equals(summary3));
+        equalsAndHashCodeTester.testEquals();
     }
 
     public void testHashCode() {
-        assertTrue(summary1.hashCode() == summary2.hashCode());
-        assertFalse(summary1.hashCode() == summary3.hashCode());
+        equalsAndHashCodeTester.testHashCode();
     }
 
     public void testToString() {
