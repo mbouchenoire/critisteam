@@ -2,16 +2,21 @@ package com.mbouchenoire.critisteam;
 
 import com.mbouchenoire.critisteam.error.SteamReviewsException;
 
+import java.util.Collection;
+
 /**
  * @author mbouchenoire
  */
-public class SteamReviewsApi implements UserReviewsSummaryRepository {
+public class SteamReviewsApi implements UserReviewsSummaryRepository, UserReviewsRepository {
 
     private final UserReviewsSummaryRepository userReviewsSummaryRepository;
+    private final UserReviewsRepository userReviewsRepository;
 
     public SteamReviewsApi() {
         super();
-        this.userReviewsSummaryRepository = new UserReviewsSummaryAppLandingPageScraper(new URLConnectionHtmlRetriever());
+        final HtmlRetriever htmlRetriever = new URLConnectionHtmlRetriever();
+        this.userReviewsSummaryRepository = new UserReviewsSummaryAppLandingPageScraper(htmlRetriever);
+        this.userReviewsRepository = new UserReviewsAppLandingPageScraper(htmlRetriever);
     }
 
     @Override
@@ -19,7 +24,8 @@ public class SteamReviewsApi implements UserReviewsSummaryRepository {
         return userReviewsSummaryRepository.getSummary(appId, timePeriod);
     }
 
-    protected UserReviewsSummaryRepository getUserReviewsSummaryRepository() {
-        return this.userReviewsSummaryRepository;
+    @Override
+    public Collection<UserReview> getReviews(int appId, final SteamSupportedLanguage language) throws SteamReviewsException {
+        return userReviewsRepository.getReviews(appId, language);
     }
 }

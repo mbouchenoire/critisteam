@@ -44,7 +44,7 @@ public class CachedSteamReviewsApiTest extends TestCase {
         apiTester.testGetSummaryRecentAbsent();
     }
 
-    public void testSecondAccessFaster() throws SteamReviewsException {
+    public void testGetSummarySecondAccessFaster() throws SteamReviewsException {
         final SteamReviewsApi cachedApi = new CachedSteamReviewsApi(new CacheConfig(1, TimeUnit.HOURS));
 
         final Stopwatch firstStopWatch = Stopwatch.createStarted();
@@ -58,7 +58,7 @@ public class CachedSteamReviewsApiTest extends TestCase {
         assertTrue(firstStopWatch.elapsed(TimeUnit.NANOSECONDS) > secondStopWatch.elapsed(TimeUnit.NANOSECONDS));
     }
 
-    public void testCachedApiFasterThanNoCache() throws SteamReviewsException {
+    public void testCachedApiGetSummaryFasterThanNoCache() throws SteamReviewsException {
         final SteamReviewsApi noCacheApi = new SteamReviewsApi();
         final SteamReviewsApi cachedApi = new CachedSteamReviewsApi(new CacheConfig(1, TimeUnit.HOURS));
 
@@ -75,5 +75,46 @@ public class CachedSteamReviewsApiTest extends TestCase {
         cachedStopwatch.stop();
 
         assertTrue(noCacheStopwatch.elapsed(TimeUnit.NANOSECONDS) > cachedStopwatch.elapsed(TimeUnit.NANOSECONDS));
+    }
+
+    public void testGetReviews() throws SteamReviewsException {
+        apiTester.testGetReviews();
+    }
+
+    public void testGetReviewsSecondAccessFaster() throws SteamReviewsException {
+        final SteamReviewsApi cachedApi = new CachedSteamReviewsApi(new CacheConfig(1, TimeUnit.HOURS));
+
+        final Stopwatch firstStopWatch = Stopwatch.createStarted();
+        cachedApi.getReviews(APP_ID, SteamSupportedLanguage.defaultLanguage());
+        firstStopWatch.stop();
+
+        final Stopwatch secondStopWatch = Stopwatch.createStarted();
+        cachedApi.getReviews(APP_ID, SteamSupportedLanguage.defaultLanguage());
+        secondStopWatch.stop();
+
+        assertTrue(firstStopWatch.elapsed(TimeUnit.NANOSECONDS) > secondStopWatch.elapsed(TimeUnit.NANOSECONDS));
+    }
+
+    public void testCachedApiGetReviewsFasterThanNoCache() throws SteamReviewsException {
+        final SteamReviewsApi noCacheApi = new SteamReviewsApi();
+        final SteamReviewsApi cachedApi = new CachedSteamReviewsApi(new CacheConfig(1, TimeUnit.HOURS));
+
+        final Stopwatch noCacheStopwatch = Stopwatch.createStarted();
+        noCacheApi.getReviews(APP_ID, SteamSupportedLanguage.defaultLanguage());
+        noCacheApi.getReviews(APP_ID, SteamSupportedLanguage.defaultLanguage());
+        noCacheApi.getReviews(APP_ID, SteamSupportedLanguage.defaultLanguage());
+        noCacheStopwatch.stop();
+
+        final Stopwatch cachedStopwatch = Stopwatch.createStarted();
+        cachedApi.getReviews(APP_ID, SteamSupportedLanguage.defaultLanguage());
+        cachedApi.getReviews(APP_ID, SteamSupportedLanguage.defaultLanguage());
+        cachedApi.getReviews(APP_ID, SteamSupportedLanguage.defaultLanguage());
+        cachedStopwatch.stop();
+
+        assertTrue(noCacheStopwatch.elapsed(TimeUnit.NANOSECONDS) > cachedStopwatch.elapsed(TimeUnit.NANOSECONDS));
+    }
+
+    public void testGetReviewsDifferentLanguages() throws SteamReviewsException {
+        apiTester.testGetReviewsDifferentLanguages();
     }
 }
