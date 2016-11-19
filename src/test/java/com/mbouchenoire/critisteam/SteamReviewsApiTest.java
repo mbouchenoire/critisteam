@@ -11,6 +11,7 @@ public class SteamReviewsApiTest extends TestCase {
 
     private final SteamReviewsApi api;
     private final UserReviewsSummaryRepositoryTest userReviewsSummaryRepositoryTester;
+    private final UserReviewsRepositoryTest userReviewsRepositoryTest;
 
     public SteamReviewsApiTest(String testName) {
         this(testName, new SteamReviewsApi());
@@ -20,6 +21,7 @@ public class SteamReviewsApiTest extends TestCase {
         super(testName);
         this.api = api;
         this.userReviewsSummaryRepositoryTester = new UserReviewsSummaryRepositoryTest(api);
+        this.userReviewsRepositoryTest = new UserReviewsRepositoryTest(api);
     }
 
     public static TestSuite suite() {
@@ -40,5 +42,13 @@ public class SteamReviewsApiTest extends TestCase {
 
     public void testGetSummaryRecentAbsent() throws SteamReviewsException {
         userReviewsSummaryRepositoryTester.testGetSummaryRecentAbsent();
+    }
+
+    public void testGetReviews() throws SteamReviewsException {
+        userReviewsRepositoryTest.testGetReviews();
+    }
+
+    public void testGetReviewsDifferentLanguages() throws SteamReviewsException {
+        userReviewsRepositoryTest.testGetReviewsDifferentLanguages();
     }
 }
