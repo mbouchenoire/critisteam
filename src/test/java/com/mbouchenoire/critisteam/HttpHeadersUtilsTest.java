@@ -22,6 +22,22 @@ public class HttpHeadersUtilsTest extends TestCase {
         return new TestSuite(HttpHeadersUtilsTest.class);
     }
 
+    public void testNullArguments() {
+        try {
+            HttpHeadersUtils.acceptLanguage(null);
+            assertTrue(false);
+        } catch(IllegalArgumentException iae) {
+            assertNotNull(iae);
+        }
+
+        try {
+            HttpHeadersUtils.acceptLanguageOnly(null);
+            assertTrue(false);
+        } catch(IllegalArgumentException iae) {
+            assertNotNull(iae);
+        }
+    }
+
     public void testAcceptLanguages() {
         final Map.Entry<String, String> header = HttpHeadersUtils.acceptLanguage(SteamSupportedLanguage.FRENCH);
         assertEquals(ACCEPT_LANGUAGE_HEADER_KEY, header.getKey());

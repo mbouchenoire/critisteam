@@ -12,6 +12,9 @@ import java.util.Map;
 public class HttpHeadersUtils {
 
     public static Map<String, String> acceptLanguageOnly(final SteamSupportedLanguage language) {
+        if (language == null)
+            throw new IllegalArgumentException("Language cannot be null.");
+
         final Map<String, String> headers = new HashMap<String, String>();
         final Map.Entry<String, String> acceptLanguageHeader = acceptLanguage(language);
         headers.put(acceptLanguageHeader.getKey(), acceptLanguageHeader.getValue());
@@ -19,6 +22,9 @@ public class HttpHeadersUtils {
     }
 
     public static Map.Entry<String, String> acceptLanguage(final SteamSupportedLanguage language) {
+        if (language == null)
+            throw new IllegalArgumentException("Language cannot be null.");
+
         return new AbstractMap.SimpleImmutableEntry<String, String>("Accept-Language", language.getIso639_1());
     }
 }
