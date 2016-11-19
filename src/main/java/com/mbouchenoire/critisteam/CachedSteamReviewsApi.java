@@ -10,8 +10,6 @@ import java.util.Collection;
 import java.util.Map;
 import java.util.concurrent.ExecutionException;
 
-import static javafx.scene.input.KeyCode.T;
-
 /**
  * @author mbouchenoire
  */
