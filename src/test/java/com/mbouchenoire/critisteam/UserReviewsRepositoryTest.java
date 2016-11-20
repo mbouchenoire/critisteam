@@ -2,9 +2,7 @@ package com.mbouchenoire.critisteam;
 
 import com.mbouchenoire.critisteam.error.SteamReviewsException;
 
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
 
 import static junit.framework.Assert.assertFalse;
 import static junit.framework.Assert.assertNotNull;
@@ -36,6 +34,8 @@ public class UserReviewsRepositoryTest {
         final Collection<UserReview> frenchReviews = repository.getReviews(APP_ID, SteamSupportedLanguage.FRENCH);
 
         for(UserReview englishReview: englishReviews) {
+            UserReviewTest.testUserReview(englishReview);
+
             assertFalse(frenchReviews.contains(englishReview));
         }
     }
