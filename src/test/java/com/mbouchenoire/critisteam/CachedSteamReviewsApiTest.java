@@ -28,6 +28,15 @@ public class CachedSteamReviewsApiTest extends TestCase {
         return new TestSuite(CachedSteamReviewsApiTest.class);
     }
 
+    public void testNullCacheConfig() {
+        try {
+            new CachedSteamReviewsApi(null);
+            assertTrue(false);
+        } catch(IllegalArgumentException iae) {
+            assertNotNull(iae);
+        }
+    }
+
     public void testGetSummaryInvalidAppId() {
         apiTester.testGetSummaryInvalidAppId();
     }
