@@ -21,4 +21,28 @@ public class UserReviewsSummaryLabelTest extends TestCase {
         assertFalse(UserReviewsSummaryLabel.NEGATIVE.isBetterThan(UserReviewsSummaryLabel.POSITIVE));
         assertFalse(UserReviewsSummaryLabel.POSITIVE.isBetterThan(UserReviewsSummaryLabel.POSITIVE));
     }
+
+    public void testFromRank() {
+        final UserReviewsSummaryLabel label = UserReviewsSummaryLabel.POSITIVE;
+        assertEquals(label, UserReviewsSummaryLabel.fromRank(label.getRank()));
+
+        try {
+            UserReviewsSummaryLabel.fromRank(-1);
+            assertTrue(false);
+        } catch(IllegalArgumentException iae) {
+            assertNotNull(iae);
+        }
+    }
+
+    public void testFromText() {
+        final UserReviewsSummaryLabel label = UserReviewsSummaryLabel.POSITIVE;
+        assertEquals(label, UserReviewsSummaryLabel.fromText(label.getText()));
+
+        try {
+            UserReviewsSummaryLabel.fromText("?");
+            assertTrue(false);
+        } catch(IllegalArgumentException iae) {
+            assertNotNull(iae);
+        }
+    }
 }
