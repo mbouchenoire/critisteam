@@ -13,7 +13,7 @@ import static junit.framework.Assert.assertTrue;
 public class UserReviewsSummaryRepositoryTest {
 
     private static final int RECENT_AND_OVERALL_REVIEWS_APP_ID = 730; // CS:GO
-    private static final int NO_RECENT_REVIEWS_APP_ID = 33520; // Tropico Reloaded
+    private static final int NO_RECENT_REVIEWS_APP_ID = 4900; // Zen of Sudoku
 
     private final UserReviewsSummaryRepository repository;
 
