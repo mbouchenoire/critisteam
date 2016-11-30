@@ -106,6 +106,12 @@ public class UserReviewTest extends TestCase {
         }
     }
 
+    public void testValidReview() {
+        testUserReview(userReview1);
+        testUserReview(userReview2);
+        testUserReview(userReview3);
+    }
+
     public void testEquals() {
         new EqualsAndHashCodeTest(userReview1, userReview2, userReview3).testEquals();
     }
