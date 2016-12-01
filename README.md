@@ -17,11 +17,26 @@ public class App {
 
     public static void main(String[] args) throws SteamReviewsException {
         SteamReviewsApi reviewsApi = new SteamReviewsApi();
+        
+        // Retrieve reviews summary (number, positive percentage...)
         UserReviewsSummary reviewsSummary = reviewsApi.getSummary(APP_ID, TimePeriod.RECENT);
 
         reviewsSummary.getReviewsNumber(); // 53,124
         reviewsSummary.getPositivePercentage(); // 87%
         reviewsSummary.getLabel(); // VERY_POSITIVE
+        
+        // Retrieve individual reviews
+        Collection<UserReview> reviews = reviewsApi.getReviews(APP_ID, SteamSupportedLanguage.ENGLISH);
+        
+        for(UserReview review: reviews) {
+            review.getProfile(); // UserProfile class with owned games number, reviews number...
+            review.getHoursOnRecord(); // 145 (hours played when the user posted the review)
+            review.isRecommendation(); // true
+            review.getContent(); // "This game is pretty cool but..."
+            review.getRatingsNumber(); // 57 (the total number of ratings for this review)
+            review.getHelpfulRatingsNumber(); // 48 (number of people who found this review helpful)
+            review.getFunnyRatingsNumber(); // 20 (number of people who found this review funny)
+        }
     }
 }
 ```
