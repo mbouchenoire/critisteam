@@ -3,6 +3,7 @@ package com.mbouchenoire.critisteam;
 import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.CacheLoader;
 import com.google.common.cache.LoadingCache;
+import com.google.common.cache.RemovalListener;
 import com.mbouchenoire.critisteam.error.SteamReviewsException;
 
 import java.util.AbstractMap;
@@ -17,18 +18,29 @@ abstract class SteamReviewsApiCacheManager<KeyType, ValueType> {
     private final LoadingCache<Map.Entry<Integer, KeyType>, ValueType> cache;
 
     public SteamReviewsApiCacheManager(final CacheConfig cacheConfig) {
-        this.cache = init(cacheConfig);
+        this(cacheConfig, null);
     }
 
-    private LoadingCache<Map.Entry<Integer, KeyType>, ValueType> init(final CacheConfig cacheConfig) {
-        return CacheBuilder.newBuilder()
-                .expireAfterWrite(cacheConfig.getDuration(), cacheConfig.getTimeUnit())
-                .build(new CacheLoader<Map.Entry<Integer, KeyType>, ValueType>() {
-                    @Override
-                    public ValueType load(Map.Entry<Integer, KeyType> params) throws Exception {
-                        return loadNewEntry(params.getKey(), params.getValue());
-                    }
-                });
+    public SteamReviewsApiCacheManager(final CacheConfig cacheConfig, final RemovalListener removalListener) {
+        this.cache = init(cacheConfig, removalListener);
+    }
+
+    private LoadingCache<Map.Entry<Integer, KeyType>, ValueType> init(final CacheConfig cacheConfig, final RemovalListener removalListener) {
+        CacheBuilder builder = CacheBuilder.newBuilder()
+                                .expireAfterWrite(cacheConfig.getDuration(), cacheConfig.getTimeUnit());
+
+        if (removalListener != null) {
+            builder = builder.removalListener(removalListener);
+        }
+
+        final CacheLoader<Map.Entry<Integer, KeyType>, ValueType> loader = new CacheLoader<Map.Entry<Integer, KeyType>, ValueType>() {
+            @Override
+            public ValueType load(Map.Entry<Integer, KeyType> params) throws Exception {
+                return loadNewEntry(params.getKey(), params.getValue());
+            }
+        };
+
+        return builder.build(loader);
     }
 
     protected abstract ValueType loadNewEntry(int appId, KeyType key) throws SteamReviewsException;
