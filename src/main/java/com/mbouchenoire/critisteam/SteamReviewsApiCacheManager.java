@@ -38,7 +38,7 @@ abstract class SteamReviewsApiCacheManager<KeyType, ValueType> {
             final Map.Entry params = new AbstractMap.SimpleImmutableEntry(appId, key);
 
             synchronized (cache) {
-                return (ValueType)cache.get(params);
+                return cache.get(params);
             }
         } catch (ExecutionException ee) {
             final Throwable cause = ee.getCause();
