@@ -52,9 +52,14 @@ public class HtmlScrapingUtilsTest extends TestCase {
     }
 
     public void testFindDoubles() {
-        double[] doubles = HtmlScrapingUtils.findDoubles("514.8 62.1 874");
-        assertEquals(doubles[0], 514.8d);
-        assertEquals(doubles[1], 62.1d);
-        assertEquals(doubles[2], 874d);
+        double[] usDoubles = HtmlScrapingUtils.findDoubles("514.8 62.1 874");
+        assertEquals(usDoubles[0], 514.8d);
+        assertEquals(usDoubles[1], 62.1d);
+        assertEquals(usDoubles[2], 874d);
+
+        double[] frenchDoubles = HtmlScrapingUtils.findDoubles("124,3 54 1,9");
+        assertEquals(frenchDoubles[0], 124.3d);
+        assertEquals(frenchDoubles[1], 54d);
+        assertEquals(frenchDoubles[2], 1.9d);
     }
 }

@@ -5,6 +5,7 @@ import com.google.common.primitives.Ints;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Scanner;
 
 /**
@@ -32,23 +33,10 @@ public class HtmlScrapingUtils {
     }
 
     public static double[] findDoubles(final String text) {
-        if (text == null)
-            throw new IllegalArgumentException("Text to parse cannot be null.");
+        double[] usDoubles = findDoubles(new Scanner(text).useLocale(Locale.US));
+        double[] frenchDoubles = findDoubles(new Scanner(text).useLocale(Locale.FRANCE));
 
-        // This is not an elegant solution to a Localization problem
-        final Scanner stPeriods = new Scanner(text.replace(",", "."));
-        final Scanner stCommas = new Scanner(text.replace(".", ","));
-
-        final double[] doublesWithPeriods = findDoubles(stPeriods);
-        final double[] doublesWithCommas = findDoubles(stCommas);
-
-        if (doublesWithCommas.length > 0) {
-            return doublesWithCommas;
-        } else if (doublesWithPeriods.length > 0) {
-            return doublesWithPeriods;
-        } else {
-            return new double[0];
-        }
+        return usDoubles.length > 0 ? usDoubles : frenchDoubles;
     }
 
     private static double[] findDoubles(final Scanner scanner) {
