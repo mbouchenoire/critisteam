@@ -1,6 +1,8 @@
 package com.mbouchenoire.critisteam;
 
 /**
+ * Represents an user profile which reviewed a game.
+ *
  * @author mbouchenoire
  */
 public class UserProfile {
@@ -24,14 +26,29 @@ public class UserProfile {
         this.reviewsNumber = reviewsNumber;
     }
 
+    /**
+     * Returns the name of the user profile
+     *
+     * @return the name of the user profile
+     */
     public String getName() {
         return name;
     }
 
+    /**
+     * Return the number of owned games of the user profile
+     *
+     * @return the number of owned games of the user profile
+     */
     public int getOwnedGamesNumber() {
         return ownedGamesNumber;
     }
 
+    /**
+     * Returns the number of reviews posted by the user profile
+     *
+     * @return the number of reviews posted by the user profile
+     */
     public int getReviewsNumber() {
         return reviewsNumber;
     }
