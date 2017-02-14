@@ -24,14 +24,29 @@ public final class UserReviewsSummary {
         this.label = label;
     }
 
+    /**
+     * Returns the number of reviews for this game at a specific language (or not).
+     *
+     * @return the number of reviews for this game
+     */
     public int getReviewsNumber() {
         return reviewsNumber;
     }
 
+    /**
+     * Returns the percentage of positive reviews for this game at a specific language or time span (see the API)
+     *
+     * @return the percentage of positive reviews for this game
+     */
     public int getPositivePercentage() {
         return positivePercentage;
     }
 
+    /**
+     * Returns the label of the reviews summary (positive, mixed..) as an enumeration value.
+     *
+     * @return the label of the reviews summary
+     */
     public UserReviewsSummaryLabel getLabel() {
         return label;
     }
