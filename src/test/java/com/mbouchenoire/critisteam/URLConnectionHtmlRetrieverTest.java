@@ -24,7 +24,7 @@ public class URLConnectionHtmlRetrieverTest extends TestCase {
     public void testRetrieve() throws IOException {
         final String html = new URLConnectionHtmlRetriever().retrieve("http://www.w3schools.com/");
         final Document page = Jsoup.parse(html);
-        final Element element = page.select("#fblikeframe").first();
+        final Element element = page.select("title").first();
         assertNotNull(element);
     }
 }

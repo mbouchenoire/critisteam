@@ -33,6 +33,9 @@ public class HtmlScrapingUtils {
     }
 
     public static double[] findDoubles(final String text) {
+        if (text == null)
+            throw new IllegalArgumentException("text cannot be null");
+
         double[] usDoubles = findDoubles(new Scanner(text).useLocale(Locale.US));
         double[] frenchDoubles = findDoubles(new Scanner(text).useLocale(Locale.FRANCE));
 
